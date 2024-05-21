@@ -1,64 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../profile.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../../profile.css" />
     <title>Problem</title>
     <script>
-	function auto_grow() {
-		element = document.getElementById("usercode");
-		element.style.height = "5px";
-                element.style.height = (element.scrollHeight) + "px";
-		element = document.getElementById("feedback");
-		element.style.height = "5px";
-		element.style.height = (element.scrollHeight) + "px";
-	}
+      function auto_grow() {
+        element = document.getElementById("usercode");
+        element.style.height = "5px";
+        element.style.height = element.scrollHeight + "px";
+        element = document.getElementById("feedback");
+        element.style.height = "5px";
+        element.style.height = element.scrollHeight + "px";
+      }
     </script>
-</head>
-<body onload="auto_grow()">
+  </head>
+  <body onload="auto_grow()">
     <div class="navbar">
-        <ul class="nb">
-            <li class="nb"><a href="/grade/profile">Home</a></li>
-            <li class="nb"><a href="/grade/status">Submissions</a></li>
-            <li class="nb"><a href="/grade/contests">Contests</a></li>
-            <li class="nb"><a href="/grade/problemset">Problemset</a></li>
-            <li class="nb"><a href="/grade/submit">Submit</a></li>
-	    <li class="nb"><a href="/grade/info">Rules and Info</a></li>
-        </ul>
+      <ul class="nb">
+        <li class="nb"><a href="/grade/profile">Home</a></li>
+        <li class="nb"><a href="/grade/status">Submissions</a></li>
+        <li class="nb"><a href="/grade/contests">Contests</a></li>
+        <li class="nb"><a href="/grade/problemset">Problemset</a></li>
+        <li class="nb"><a href="/grade/submit">Submit</a></li>
+        <li class="nb"><a href="/grade/info">Rules and Info</a></li>
+      </ul>
     </div>
- <div id="particles-js" class="particles-js">   
-</div>
+    <div id="particles-js" class="particles-js"></div>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <script>
-    /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-particlesJS.load('particles-js', '../../particles.json', function() {
-  console.log('callback - particles.js config loaded');
-});
+      /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+      particlesJS.load("particles-js", "../../particles.json", function () {
+        console.log("callback - particles.js config loaded");
+      });
     </script>
     <div class="main-block">
-	    <div class="title">Problem: <%=locals.submission.problemname%>, Language: <%=locals.submission.language%>, Runtime: <%=locals.submission.runtime%>ms, Verdict: <%=locals.submission.verdict%>, Time: <%=locals.submission.timestamp%><% if (locals.submission.admin) { %> - Viewing as Admin <% } %></div>
-	<br>
-        <textarea id="usercode" style="width: 100%; font-size:1.5em" rows="4", cols="50" readonly><%=locals.submission.code%></textarea>
-        <br>
-	<% if (locals.submission.verdict == "AC") {%>
-	<div class="info">
-	    <%-locals.submission.insight%>
-	</div>
-	<% } else { %>
-	    <textarea id="feedback" style="width: 100%; font-size:1.5em" rows="4", cols="50" readonly><%=locals.submission.insight%></textarea>
-	<% } %>
-
+      <div class="title">
+        Problem: <%=locals.submission.problemname%>, Language:
+        <%=locals.submission.language%>, Runtime:
+        <%=locals.submission.runtime%>ms, Verdict:
+        <%=locals.submission.verdict%>, Time: <%=locals.submission.timestamp%>
+        <% if (locals.submission.admin) { %> - Viewing as Admin <% } %>
+      </div>
+      <br/>
+      <textarea id="usercode" style="width: 100%; font-size: 1.5em" rows="4", cols="50" readonly>
+        <%=locals.submission.code%>
+      </textarea>
+      <br/>
+      <% if (locals.submission.verdict == "AC") {%> <div class="info"><%-locals.submission.insight%></div> <% } else { %>
+      <textarea id="feedback" style="width: 100%; font-size: 1.5em" rows="4", cols="50" readonly>
+        <%=locals.submission.insight%>
+      </textarea>
+      <% } %>
     </div>
     <div class="option-buttons">
-        <a href=<%="/grade/problemset/"+locals.submission.problemid%>>
-            <div class="button">Problem</div>
-        </a> 
-        <a href="/grade/status">
-            <div class="button">Back</div>
-        </a> 
+      <a href="<%" ="/grade/problemset/" +locals.submission.problemid%
+        >>
+        <div class="button">Problem</div>
+      </a>
+      <a href="/grade/status">
+        <div class="button">Back</div>
+      </a>
     </div>
-</body>
+  </body>
 </html>

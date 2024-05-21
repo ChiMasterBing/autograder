@@ -1,77 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/../profile.css"/>
-    <title>My Submissions</title>
-</head>
-<body>
-    <div class="navbar">
-        <ul class="nb">
-            <li class="nb"><a href="/grade/profile">Home</a></li>
-            <li class="nb"><a class="active" href="/grade/status">Submissions</a></li>
-            <li class="nb"><a href="/grade/contests">Contests</a></li>
-            <li class="nb"><a href="/grade/problemset">Problemset</a></li>
-            <li class="nb"><a href="/grade/submit">Submit</a></li>
-	    <li class="nb"><a href="/grade/info">Rules and Info</a></li>
-        </ul>
-    </div>
-    <br>
- <div id="particles-js" class="particles-js">   
-</div>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/../profile.css" />
+    <title>Submissions</title>
+  </head>
+  <body>
 
-    <script>
-    /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-particlesJS.load('particles-js', '../particles.json', function() {
-  console.log('callback - particles.js config loaded');
-});
-    </script>
-    <div class='main-block'>
-        <div class="title">Submissions<% if (locals.viewAsAdmin == true) { %> - Viewing as Admin <% } %></div>
+    <script type="text/javascript" src="../particles.js"></script>
+    <script> particlesJS.load("particles-js", "../particles.json", function () {console.log("callback - particles.js config loaded")});</script>
+    <div id="particles-js" class="particles-js"></div>
+
+		<div class="navbar">
+			<ul class="nb">
+				<li id="logoHolder" class="nb"><img class="logo" src="/images/logo.svg"></li>
+				<li class="nb"><a href="/grade/profile"><p>Home</p></a></li>
+				<li class="nb"><a class="active" href="/grade/status"><p>Submissions</p></a></li>
+				<li class="nb"><a href="/grade/contests"><p>Contests</p></a></li>
+				<li class="nb"><a href="/grade/problemset"><p>Problemset</p></a></li>
+				<li class="nb"><a href="/grade/submit"><p>Submit</p></a></li>
+				<li class="nb"><a href="/grade/info"><p>Rules and Info</p></a></li>
+				<li class="nb topnav-right">
+					<form style="height: 100%;" action="/grade/logout" method="POST">
+						<button class="logoutbtn" type="submit">Log Out</button>
+					</form>
+				</li>
+			</ul>
+		</div>
+
+    <div class="main-block">
+      <div class="title">
+        Submissions<% if (locals.viewAsAdmin == true) { %> - Viewing as Admin <%} %>
+      </div>
     </div>
-    <div class='main-block' id="submissions">
-		<table>
-			<tr>
-				<th>Submission</th>
-				<% if (locals.viewAsAdmin == true) { %>
-				<th>User</th>
-				<% } %>
-				<th>Problem</th>
-				<th>Runtime</th>
-				<th>Verdict</th>
-			</tr>
-			<% for (let i=locals.submissions.length-1-(locals.page-1)*100; i>=Math.max(locals.submissions.length-locals.page*100, 0); i--) { %>
-			<tr>
-				<td>
-					<a href = <%="/grade/status/"+locals.submissions[i].id%>>
-						View #<%=locals.submissions[i].id%>
-					</a>
-				</td>
-				<% if (locals.viewAsAdmin == true) { %>
-				<td>
-					<a href = <%="/grade/profile/"+locals.submissions[i].user%>>
-						<%=locals.submissions[i].user%>
-					</a>
-				</td>
-				<% } %>
-				<td>
-					<a href = <%="/grade/problemset/"+locals.submissions[i].problemid%>>
-						<%=locals.submissions[i].problemname%>
-					</a>
-				</td>
-				<td>
-					<%=locals.submissions[i].runtime%> ms
-				</td>
-				<td>
-					<%=locals.submissions[i].verdict%>
-				</td>
-			</tr>
-			<% } %>
-		</table>
-    	<a href=<%= "/grade/status/?page="+(parseInt(locals.page)+1) %>>Next Page</a>
+    <div class="main-block" id="submissions">
+      <table>
+        <tr>
+          <th>Submission</th>
+          <% if (locals.viewAsAdmin == true) { %>
+          <th>User</th>
+          <% } %>
+          <th>Problem</th>
+          <th>Runtime</th>
+          <th>Verdict</th>
+        </tr>
+        <% for (let i=locals.submissions.length-1-(locals.page-1)*100; i>=Math.max(locals.submissions.length-locals.page*100, 0); i--) { %>
+        <tr>
+          <td>
+            <a href=<%="/grade/status/" + locals.submissions[i].id%>>
+							View #<%=locals.submissions[i].id%>
+            </a>
+          </td>
+          <% if (locals.viewAsAdmin == true) { %>
+						<td>
+							<a href=<%="/grade/profile/" + locals.submissions[i].user%>>
+								<%=locals.submissions[i].user%>
+							</a>
+						</td>
+          <% } %>
+          <td>
+            <a href=<%="/grade/problemset/" + locals.submissions[i].problemid%>>
+							<%=locals.submissions[i].problemname%>
+            </a>
+          </td>
+          <td>
+						<%=locals.submissions[i].runtime%> ms
+					</td>
+          <td>
+						<%=locals.submissions[i].verdict%>
+					</td>
+        </tr>
+        <% } %>
+      </table>
+      <a href=<%="/grade/status/?page=" +(parseInt(locals.page)+1) %>>
+				Next Page
+			</a>
     </div>
-</body>
+  </body>
 </html>

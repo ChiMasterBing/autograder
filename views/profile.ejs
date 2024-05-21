@@ -1,46 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../profile.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../profile.css" />
     <title>Profile</title>
-</head>
-<body>
-    <div class="navbar">
+  </head>
+  <body>
+    <script type="text/javascript" src="../particles.js"></script>
+    <script> particlesJS.load("particles-js", "../particles.json", function () {console.log("callback - particles.js config loaded")});</script>
+    <div id="particles-js" class="particles-js"></div>
+
+    <div id="mainContent">
+      <div class="navbar">
         <ul class="nb">
-            <li class="nb"><a class="active" href="/grade/profile">Home</a></li>
-            <li class="nb"><a href="/grade/status">Submissions</a></li>
-            <li class="nb"><a href="/grade/contests">Contests</a></li>
-            <li class="nb"><a href="/grade/problemset">Problemset</a></li>
-	    <li class="nb"><a href="/grade/info">Rules and Info</a></li>
-	    <div class ="topnav-right">
-	    <li class="nb">
-		    <form action="/grade/logout" method="POST">
-			<button class="logoutbtn" type="submit">Log Out</button>
-		    </form>
-	    </li>
-	    </div>
-
+          <li id="logoHolder" class="nb"><img class="logo" src="/images/logo.svg"></li>
+          <li class="nb"><a class="active" href="/grade/profile"><p>Home</p></a></li>
+          <li class="nb"><a href="/grade/status"><p>Submissions</p></a></li>
+          <li class="nb"><a href="/grade/contests"><p>Contests</p></a></li>
+          <li class="nb"><a href="/grade/problemset"><p>Problemset</p></a></li>
+          <li class="nb"><a href="/grade/submit"><p>Submit</p></a></li>
+          <li class="nb"><a href="/grade/info"><p>Rules and Info</p></a></li>
+          <li class="nb topnav-right">
+            <form style="height: 100%;" action="/grade/logout" method="POST">
+              <button class="logoutbtn" type="submit">Log Out</button>
+            </form>
+          </li>
         </ul>
-    </div>
-    
- <div id="particles-js" class="particles-js">   
-</div>
-    <script src="//cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-    /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-particlesJS.load('particles-js', '../particles.json', function() {
-  console.log('callback - particles.js config loaded');
-});
-    </script>
-    <div class="info-block">
-        <div class="title"><strong>Profile</strong></div>   
-	<div class="info">Name: <%=locals.name%></div>
-	<div class="info">Username: <%=locals.username%></div>
-    </div>
+      </div>
 
-    
-</body>
+      <div id="subContent">
+        <div class="info-block">
+          <div class="title"><p>Profile</p></div>
+          <div class="userinfo">Name: <%=locals.name%></div>
+          <div class="userinfo">Username: <%=locals.username%></div>
+          <div class="statsInfo"></div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

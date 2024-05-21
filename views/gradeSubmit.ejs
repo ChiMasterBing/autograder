@@ -1,94 +1,99 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Grade</title>
-    <link rel="stylesheet" type="text/css" href="../profile.css">
-</head>
-<body data-new-gr-c-s-check-loaded="14.1128.0" data-gr-ext-installed="" data-new-gr-c-s-loaded="14.1128.0">
+    <link rel="stylesheet" type="text/css" href="../profile.css" />
+  </head>
+  <body data-new-gr-c-s-check-loaded="14.1128.0" data-gr-ext-installed="" data-new-gr-c-s-loaded="14.1128.0">
+    <script type="text/javascript" src="../particles.js"></script>
+    <script> particlesJS.load("particles-js", "../particles.json", function () {console.log("callback - particles.js config loaded")});</script>
+    <div id="particles-js" class="particles-js"></div>
+
     <div class="navbar">
-        <ul class="nb">
-            <li class="nb"><a href="/grade/profile">Home</a></li>
-            <li class="nb"><a href="/grade/status">Submissions</a></li>
-            <li class="nb"><a href="/grade/contests">Contests</a></li>
-            <li class="nb"><a href="/grade/problemset">Problemset</a></li>
-            <li class="nb"><a class="active" href="/grade/submit">Submit</a></li>
-	    <li class="nb"><a href="/grade/info">Rules and Info</a></li>
-        </ul>
+      <ul class="nb">
+        <li id="logoHolder" class="nb"><img class="logo" src="/images/logo.svg"></li>
+        <li class="nb"><a href="/grade/profile"><p>Home</p></a></li>
+        <li class="nb"><a href="/grade/status"><p>Submissions</p></a></li>
+        <li class="nb"><a href="/grade/contests"><p>Contests</p></a></li>
+        <li class="nb"><a href="/grade/problemset"><p>Problemset</p></a></li>
+        <li class="nb"><a class="active" href="/grade/submit"><p>Submit</p></a></li>
+        <li class="nb"><a href="/grade/info"><p>Rules and Info</p></a></li>
+        <li class="nb topnav-right">
+          <form style="height: 100%;" action="/grade/logout" method="POST">
+            <button class="logoutbtn" type="submit">Log Out</button>
+          </form>
+        </li>
+      </ul>
     </div>
- <div id="particles-js" class="particles-js">   
-</div>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-    <script>
-    /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-particlesJS.load('particles-js', '../particles.json', function() {
-  console.log('callback - particles.js config loaded');
-});
-    </script>
     <div class="main-block">
-        <div class="title">Submit</div>
-        <div class="problem-text">Java users, make sure you are using package "subcode" and naming the class "test"</div>
+      <div class="title">Submit</div>
+      <div class="problem-text">
+        Java users, make sure you are using package "subcode" and naming the
+        class "test"
+      </div>
     </div>
     <div class="main-block">
-        <form action="/grade/status" method="POST" enctype="multipart/form-data">
-            <div class="problem-text">
-		<select id="problemid" name="problemid">
-	        <% for (let i=0; i<locals.problem.length; i++) { %>
-			<option value=<%= locals.problem[i].pid %> <% if(locals.problem[i].pid==locals.problemid) { %> selected  <% } %> > <%= locals.problem[i].pid + " - " + locals.problem[i].name %> </option>
-		<% } %>	
-		</select>
-		<br>
-            </div>
-            <div class="problem-text">
-                <select id="lang" name="lang">
-		<% if( locals.lastlang == "cpp"){ %>
-                    <option value="cpp">C++</option>
-		<% }else{ %>
-                    <option value="cpp" selected>C++</option>
-		<% } %>
-		<% if( locals.lastlang == "java"){ %>
-                    <option value="java" selected>Java</option>
-		<% }else{ %>
-                    <option value="java">Java</option>
-		<% } %>
-		<% if( locals.lastlang == "python"){ %>
-                    <option value="python" selected>Python</option>
-		<% }else{ %>
-                    <option value="python">Python</option>
-		<% } %>
-                </select>
-                <br>
-                <textarea id="codeinput" name="code" rows="20" cols="150" spellcheck="false" placeholder="Insert code here"></textarea>
-            </div>
-	    <div class="problem-text">
-	    OR USE FILE UPLOAD HERE
-	    </div>
-	    <input type='file' name='files'>
+      <form action="/grade/status" method="POST" enctype="multipart/form-data">
+        <div class="problem-text">
+          <select id="problemid" name="problemid">
+            <% for (let i=0; i<locals.problem.length; i++) { %>
+              <option value=<%= locals.problem[i].pid %> <% if(locals.problem[i].pid==locals.problemid) { %> selected  <% } %> > <%= locals.problem[i].pid + " - " + locals.problem[i].name %> </option>
+            <% } %>
+          </select>
+        </div>
+        <div class="problem-text">
+          <div class="vertAlign">
+            <select id="lang" name="lang">
+              <% if( locals.lastlang == "cpp"){ %>
+              <option value="cpp">C++</option>
+              <% }else{ %>
+              <option value="cpp" selected>C++</option>
+              <% } %> <% if( locals.lastlang == "java"){ %>
+              <option value="java" selected>Java</option>
+              <% }else{ %>
+              <option value="java">Java</option>
+              <% } %> <% if( locals.lastlang == "python"){ %>
+              <option value="python" selected>Python</option>
+              <% }else{ %>
+              <option value="python">Python</option>
+              <% } %>
+            </select>
+            <textarea id="codeinput" name="code" rows="20" cols="150" spellcheck="false" placeholder="Insert code here"></textarea>
+
+            OR USE FILE UPLOAD HERE
+            <label class="custom-file-upload">
+              <input type="file" name="files"/>
+              Upload File
+            </label>
             <div class="option-buttons">
-                <button class="button" type="submit">Submit</button>
+              <button class="button" type="submit">Submit</button>
             </div>
-        </form>
+          </div>
+        </div>
+      </form>
     </div>
 
-<script type="text/javascript">
-  document.getElementById('codeinput').addEventListener('keydown', function(e) {
-  if (e.key == 'Tab') {
-    e.preventDefault();
-    var start = this.selectionStart;
-    var end = this.selectionEnd;
+    <script type="text/javascript">
+      document
+        .getElementById("codeinput")
+        .addEventListener("keydown", function (e) {
+          if (e.key == "Tab") {
+            e.preventDefault();
+            var start = this.selectionStart;
+            var end = this.selectionEnd;
 
-    // set textarea value to: text before caret + tab + text after caret
-    this.value = this.value.substring(0, start) +
-      "\t" + this.value.substring(end);
+            // set textarea value to: text before caret + tab + text after caret
+            this.value =
+              this.value.substring(0, start) + "\t" + this.value.substring(end);
 
-    // put caret at right position again
-    this.selectionStart =
-      this.selectionEnd = start + 1;
-  }
-});
-</script>
-
-</body></html>
-
+            // put caret at right position again
+            this.selectionStart = this.selectionEnd = start + 1;
+          }
+        });
+    </script>
+  </body>
+</html>

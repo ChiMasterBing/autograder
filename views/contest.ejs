@@ -1,101 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="../../profile.css"/>
-  <title>Contest</title>
-</head>
-<body>
-  <div class="navbar">
-    <ul class="nb">
-      <li class="nb"><a href="/grade/profile">Home</a></li>
-      <li class="nb"><a href="/grade/status">Submissions</a></li>
-      <li class="nb"><a href="/grade/contests">Contests</a></li>
-      <li class="nb"><a href="/grade/problemset">Problemset</a></li>
-      <li class="nb"><a href="/grade/submit">Submit</a></li>
-      <li class="nb"><a href="/grade/info">Rules and Info</a></li>
-    </ul>
-  </div>
- <div id="particles-js" class="particles-js">   
-</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../../profile.css" />
+    <title>Contest</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <ul class="nb">
+        <li class="nb"><a href="/grade/profile">Home</a></li>
+        <li class="nb"><a href="/grade/status">Submissions</a></li>
+        <li class="nb"><a href="/grade/contests">Contests</a></li>
+        <li class="nb"><a href="/grade/problemset">Problemset</a></li>
+        <li class="nb"><a href="/grade/submit">Submit</a></li>
+        <li class="nb"><a href="/grade/info">Rules and Info</a></li>
+      </ul>
+    </div>
+    <div id="particles-js" class="particles-js"></div>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <script>
-    /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-particlesJS.load('particles-js', '../../particles.json', function() {
-  console.log('callback - particles.js config loaded');
-});
+      /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+      particlesJS.load("particles-js", "../../particles.json", function () {
+        console.log("callback - particles.js config loaded");
+      });
     </script>
-  <div class="main-block">
-    <div class="title"><%=locals.title%></div>
-  </div>
-  <div class="cnav">
-    <ul class="cnb">
-      <li class="cnb"><a class="cactive" href="/grade/contests/<%=locals.cid%>">Problems</a></li>
-      <li class="cnb"><a href="/grade/submit">Submit Code</a></li>
-      <li class="cnb"><a href="/grade/contests/<%=locals.cid%>/status?user=<%=locals.user%>&contest=<%=locals.cid%>">My Submissions</a></li>
-      <li class="cnb"><a href="/grade/contests/<%=locals.cid%>/status?contest=<%=locals.cid%>">All Submissions</a></li>
-      <li class="cnb"><a href="/grade/contests/<%=locals.cid%>/standings">Standings</a></li>
-    </ul>
-  </div>
+    <div class="main-block">
+      <div class="title"><%=locals.title%></div>
+    </div>
+    <div class="cnav">
+      <ul class="cnb">
+        <li class="cnb">
+          <a class="cactive" href="/grade/contests/<%=locals.cid%>">Problems</a>
+        </li>
+        <li class="cnb"><a href="/grade/submit">Submit Code</a></li>
+        <li class="cnb">
+          <a
+            href="/grade/contests/<%=locals.cid%>/status?user=<%=locals.user%>&contest=<%=locals.cid%>"
+            >My Submissions</a
+          >
+        </li>
+        <li class="cnb">
+          <a
+            href="/grade/contests/<%=locals.cid%>/status?contest=<%=locals.cid%>"
+            >All Submissions</a
+          >
+        </li>
+        <li class="cnb">
+          <a href="/grade/contests/<%=locals.cid%>/standings">Standings</a>
+        </li>
+      </ul>
+    </div>
 
-  <div class="main-block">
-    <table>
-      <tr>
-        <th>#</th>
-        <th>Name</th>
-	<% if (locals.problems[0].points != 1) { %>
-	<th>Points</th>
-	<% } %>
-        <th>Solved</th>
-      </tr>
-      <% for (let i=0; i<locals.problems.length; i++) { %>
-      <tr>
-        <td class="centertext"><%= "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[i] %></td>
-	<% if (locals.problems[i].available) { %>
-        <td class="centertext"><a href="/grade/problemset/<%=locals.problems[i].pid%>?back=https://tjctgrader.org/grade/contests/<%=locals.cid%>"><%=locals.problems[i].name%></a></td>
-        <% } else { %>
-	<td class="centertext">Problem Not Available</td>
-	<% } %>
-	<% if (locals.problems[0].points != 1) { %>
-	<td class="centertext"><%=locals.problems[i].points%></td>
-	<% } %>
-	<td class="centertext"><%=locals.problems[i].solves%></td>
-      </tr>
+    <div class="main-block">
+      <table>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <% if (locals.problems[0].points != 1) { %>
+          <th>Points</th>
+          <% } %>
+          <th>Solved</th>
+        </tr>
+        <% for (let i=0; i<locals.problems.length; i++) { %>
+        <tr>
+          <td class="centertext"><%= "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[i] %></td>
+          <% if (locals.problems[i].available) { %>
+            <td class="centertext">
+              <a href="/grade/problemset/<%=locals.problems[i].pid%>?back=https://tjctgrader.org/grade/contests/<%=locals.cid%>">
+                <%=locals.problems[i].name%>
+              </a>
+            </td>
+          <% } else { %>
+            <td class="centertext">Problem Not Available</td>
+          <% } %>
+          <% if (locals.problems[0].points != 1) { %> <td class="centertext"><%=locals.problems[i].points%></td> <% } %>
+          <td class="centertext"><%=locals.problems[i].solves%></td>
+        </tr>
       <% } %>
-    </table>
-  </div>
-  <div class="main-block">
-    <div class="problem-text">Announcements and Clarifications</div>
-    <div class="info"><ul>
-        <a target="_blank" href="https://docs.google.com/document/d/17r0fh2rezqDhNoCoUtwVtExn8hRml0BjeAqxQZk9MCs/edit?usp=sharing">Help Document Here</a>
-    	<p id="countdown">Contest Has Ended</p>
-    </ul></div>
-  </div>
-  <div class="option-buttons">
-    <a href="/grade/submit">
-      <div class="button">Submit</div>
-    </a>
-    <a href="/grade/contests">
-      <div class="button">Back</div>
-    </a>
-  </div>
-	<script>
-	let myVar = setInterval(myTimer,1000);
-	function myTimer() {
-		var d = <%= locals.timeStatus %> - new Date();
-		if (d>0) {
-			d=new Date(d);
-			let diff=(d.getTime()-(new Date("1970-01-01")).getTime());
-			let days=Math.floor(diff/(24*60*60*1000));
-			let hours=Math.floor(diff/(60*60*1000))%24;
-			let minutes=Math.floor(diff/(60*1000))%60;
-			let seconds=Math.floor(diff/(1000))%60;
-			document.getElementById("countdown").innerHTML = days+" Days, "+hours+" Hours, "+minutes+" Minutes, "+seconds+" Seconds until contest <%= locals.timeType %>";
-		}
-	}
+      </table>
+    </div>
+    <div class="main-block">
+      <div class="problem-text">Announcements and Clarifications</div>
+      <div class="info">
+        <ul>
+          <a target="_blank" href="https://docs.google.com/document/d/17r0fh2rezqDhNoCoUtwVtExn8hRml0BjeAqxQZk9MCs/edit?usp=sharing" >Help Document Here</a>
+          <p id="countdown">Contest Has Ended</p>
+        </ul>
+      </div>
+    </div>
+    <div class="option-buttons">
+      <a href="/grade/submit">
+        <div class="button">Submit</div>
+      </a>
+      <a href="/grade/contests">
+        <div class="button">Back</div>
+      </a>
+    </div>
+  <script>
+    let myVar = setInterval(myTimer,1000);
+    function myTimer() {
+      var d = '<%= locals.timeStatus %>' - new Date();
+      if (d>0) {
+        d=new Date(d);
+        let diff=(d.getTime()-(new Date("1970-01-01")).getTime());
+        let days=Math.floor(diff/(24*60*60*1000));
+        let hours=Math.floor(diff/(60*60*1000))%24;
+        let minutes=Math.floor(diff/(60*1000))%60;
+        let seconds=Math.floor(diff/(1000))%60;
+        document.getElementById("countdown").innerHTML = days+" Days, "+hours+" Hours, "+minutes+" Minutes, "+seconds+" Seconds until contest <%= locals.timeType %>";
+      }
+    }
 	</script>
-</body>
+  </body>
 </html>

@@ -1,8 +1,13 @@
 html {
   background-attachment: fixed;
-  height: 200%;
+  height: 100%;
   background: linear-gradient(15deg, rgba(2, 0, 36, 1) 0%, rgba(1, 22, 114, 1) 88%, rgba(0, 39, 175, 1) 98%, rgba(0, 57, 255, 1) 100%);
   overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: none;
 }
 
 .codebox {
