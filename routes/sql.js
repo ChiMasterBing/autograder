@@ -11,6 +11,67 @@ const pl = new Pool({
 	allowExitOnIdle: true
 });
 
+async function updateRating(userId) {
+	try {
+		const client = await pl.connect();
+		
+		// Fetch the user's Codeforces username
+		const userQuery = 'SELECT codeforces_username, rating FROM users WHERE id = $1';
+		const userResult = await client.query(userQuery, [userId]);
+
+		if (userResult.rows.length === 0) {
+			console.log('User not found');
+			client.release();
+			return false;
+		}
+
+		const codeforcesUsername = userResult.rows[0].codeforces_username;
+		const currentRating = userResult.rows[0].rating;
+
+		if (!codeforcesUsername) {
+			console.log('Codeforces username not found for user');
+			client.release();
+			return false;
+		}
+
+		// Fetch the user's rating changes from the Codeforces API
+		const response = await fetch(`https://codeforces.com/api/user.rating?handle=${codeforcesUsername}`);
+		const data = await response.json();
+
+		if (data.status !== 'OK') {
+			console.log('Error fetching data from Codeforces API');
+			client.release();
+			return false;
+		}
+
+		const contests = data.result;
+		if (contests.length === 0) {
+			console.log('No contests found for user');
+			client.release();
+			return false;
+		}
+
+		const mostRecentContest = contests[contests.length - 1];
+		const ratingChange = mostRecentContest.newRating - mostRecentContest.oldRating;
+
+		// If the user gained rating, update the rating in the database
+		if (ratingChange > 0) {
+			const updatedRating = currentRating + ratingChange / 10;
+			const updateQuery = 'UPDATE users SET rating = $1 WHERE id = $2';
+			await client.query(updateQuery, [updatedRating, userId]);
+			console.log(`User ${userId}'s rating updated to ${updatedRating}`);
+		} else {
+			console.log('No rating gain in the most recent contest');
+		}
+
+		client.release();
+		return true;
+	} catch (error) {
+		console.error('Error updating rating:', error);
+		return false;
+	}
+}
+
 async function testSql() {
 	pl.connect((err, client, release) => {
 		if (err) {
